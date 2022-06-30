@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1021673264764",
+    "project_id": "wordledraft",
+    "storage_bucket": "wordledraft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021673264764:android:331ff7b4aabac196dcdbf9",
+        "android_client_info": {
+          "package_name": "com.everythingle.summerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021673264764-u90052a5uki6v2upb3k968ib90g7gbce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9HBEIsMUsXahPYETFsKAS5sr9t-tBf6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021673264764-u90052a5uki6v2upb3k968ib90g7gbce.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1021673264764-qv346h7ui2ca92jdtept9kpttqeg12vm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.summerproject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
