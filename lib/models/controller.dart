@@ -410,7 +410,10 @@ class Controller extends ChangeNotifier {
     int lettersRemaining = correctWord.length - guessedWord.length;
     guessedWord = guessedWord.substring(0, guessedWord.length);
     while(letterCounter != lettersRemaining) {
+      currentTile++;
       guessedWord = guessedWord.substring(0, guessedWord.length) + "1";
+      guessed.add("1");
+      tilesEntered.add(Tile(letter: "", answerStage: AnswerStage.notAnswered));
       letterCounter++;
     }
     remainingCorrect = correctWord.characters.toList();
