@@ -16,12 +16,14 @@ class GameMode {
 
 class PuzzleInfo {
   final String answer;
+  final String date;
 
-  PuzzleInfo({ required this.answer });
+  PuzzleInfo({ required this.answer, required this.date });
 
   factory PuzzleInfo.fromJson(Map<String, dynamic> json) {
     return PuzzleInfo(
       answer: json['answer'],
+      date: "",
     );
   }
 
@@ -39,6 +41,14 @@ class PuzzleInfo {
       "answer" : answer,
     };
   }
+}
+
+class PuzzleInformationDB {
+  final PuzzleInfo puzzleInfo;
+  final String date;
+
+  // PuzzleInformationDB(this.puzzleInfo, this.date);
+  PuzzleInformationDB({required this.puzzleInfo, required this.date});
 }
 
 /*

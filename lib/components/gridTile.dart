@@ -35,23 +35,26 @@ class _GridTileState extends State<GridTile> {
     return Consumer<Controller>(
       builder: (_, notifier, __) {
         String text = "";
+        _backgroundColor = Colors.white;
+        _borderColor = Colors.grey;
         Color fontColor = Colors.white;
         if(widget.index < notifier.tilesEntered.length) {
           text = notifier.tilesEntered[widget.index].letter;
           _answerStage = notifier.tilesEntered[widget.index].answerStage;
 
           if(_answerStage == AnswerStage.correct) {
-            _borderColor = Colors.transparent;
+            // _borderColor = Colors.transparent;
             _backgroundColor = correctGreen;
           } else if(_answerStage == AnswerStage.contains) {
-            _borderColor = Colors.transparent;
+            // _borderColor = Colors.transparent;
             _backgroundColor = containsYellow;
           } else if(_answerStage == AnswerStage.incorrect) {
-            _borderColor = Colors.transparent;
+            // _borderColor = Colors.transparent;
             _backgroundColor = Theme.of(context).primaryColorDark;
           } else {
             // fontColor = Theme.of(context).textTheme.bodyText2?.color ?? Colors.black;
-            fontColor = Theme.of(context).textTheme.bodyText2?.color ?? Colors.white;
+            fontColor = Theme.of(context).textTheme.bodyText2?.color ?? Colors.black;
+            _backgroundColor = Colors.transparent;
           }
 
           return Container(

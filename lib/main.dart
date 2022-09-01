@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:summerapp/constant/colors.dart';
 import 'package:summerapp/models/user.dart';
+import 'package:summerapp/screens/home/puzzles/countryPuzzle.dart';
 import 'package:summerapp/screens/wrapper.dart';
 import 'package:summerapp/services/auth.dart';
+import 'package:summerapp/services/dataStoreCollection.dart';
 import 'package:summerapp/services/puzzlesCollection.dart';
 
 import 'models/controller.dart';
+import 'models/dbPuzzles.dart';
+import 'models/puzzleAnswers.dart';
 import 'models/puzzleInfo.dart';
 
 void main() async {
@@ -20,6 +24,20 @@ void main() async {
       StreamProvider<MyUser?>.value(
         value: AuthService().user,
         initialData: null,
+      ),
+      StreamProvider<List<DBPuzzles>>.value(
+        value: DataStoreCollection().dbPuzzles,
+        initialData: [],
+      ),
+      /*
+      StreamProvider<List<PuzzleInfo>>.value(
+        value: PuzzlesCollection(gameMode: '').puzzleInformation,
+        initialData: [],
+      ),
+       */
+      StreamProvider<List<PuzzleInformationDB>>.value(
+        value: PuzzlesCollection(gameMode: 'Countries', dateSelected: '2022-08-04').puzzleInformation,
+        initialData: [],
       ),
     ],
       child: const MyApp()));

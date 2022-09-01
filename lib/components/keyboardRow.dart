@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:summerapp/models/tile.dart';
 
 import '../constant/answerStages.dart';
 import '../constant/colors.dart';
@@ -16,8 +18,33 @@ class KeyboardRow extends StatelessWidget {
 
   final int min, max;
 
+
   @override
   Widget build(BuildContext context) {
+
+    /*
+    bool isWordCorrect() {
+      String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
+      List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
+      int guessedWordCounter = guessedWord.length - 1;
+      int counter = 0;
+      for(int i = correctWord.length - 1; i >= 0; i--) {
+        if(correctWord[i] != guessedWord[guessedWordCounter]){
+          return false;
+        } else {
+          guessedWordCounter--;
+          counter++;
+        }
+        if(counter == 6) {
+          return true;
+        }
+      }
+      return true;
+    }
+
+    bool test = isWordCorrect();
+     */
+
     final size = MediaQuery.of(context).size;
     return Consumer<Controller>(
       builder: (_, notifier, __) {
@@ -52,9 +79,87 @@ class KeyboardRow extends StatelessWidget {
                     child: Material(
                       color: color,
                       child: InkWell(
-                        onTap: (){
+                        onTap: () async {
+                          if(e.key == "ENTER"){
+                            if(Provider.of<Controller>(context, listen: false).isValidWord() == false) {
+                              final errorSnackBar = SnackBar(
+                                backgroundColor: Colors.red,
+                                // content: Text("Word guessed correct!"),
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Icon(Icons.info, size: 32),
+                                    SizedBox(width: 16),
+                                    Expanded(
+                                      child: Text(
+                                        "Enter a valid country",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
+                            }
+                            /*
+                            if(Provider.of<Controller>(context, listen: false).tilesEntered.length != Provider.of<Controller>(context, listen: false).getCorrectWord().length) {
+                                Provider.of<Controller>(context, listen: false).setKeyTapped(value: "");
+                            }
+                             */
+                            Provider.of<Controller>(context, listen: false).setKeyTapped(value: e.key);
+                            //Provider.of<Controller>(context, listen: false).returnGuessedWord();
+                            //String guessedWord = Provider.of<Controller>(context, listen: false).returnGuessedWord();
+                            //print(guessedWord);
+                            //Provider.of<Controller>(context, listen: false).getCorrectWord();
+                            // String guessedWord = Provider.of<Controller>(context, listen: false).returnGuessedWord();
+                            // print(guessedWord);
+                            String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
+                            print(correctWord);
+                            List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
+                            print(guessedWord);
+                            List<String> guessed = [];
+                            String guessedWordString = "";
+                            for(int i = 0; i < guessedWord.length; i++) {
+                              guessed.add(guessedWord[i].letter);
+                            }
+                            guessedWordString = guessed.join();
+                            print(guessedWordString);
+
+
+
+                            if(guessedWordString == correctWord) {
+                              final snackBar = SnackBar(
+                                backgroundColor: Colors.green,
+                                // content: Text("Word guessed correct!"),
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Icon(Icons.check, size: 32),
+                                    SizedBox(width: 16),
+                                    Expanded(
+                                      child: Text(
+                                        "Word guessed correct!",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              await Future.delayed(Duration(seconds: 5));
+                              exit(0);
+                            }
+                          }
                           Provider.of<Controller>(context, listen: false)
                               .setKeyTapped(value: e.key);
+
+
+                          /*
+                          if(Provider.of<Controller>(context, listen: false).checkWordBoolean() == true) {
+                            Provider.of<Controller>(context, listen: false)
+                                .setKeyTapped(value: e.key);
+                          }
+                          */
                         },
                         child: Center(child: Text(e.key, style:
                         Theme.of(context).textTheme.bodyText2?.copyWith(
