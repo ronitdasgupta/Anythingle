@@ -119,15 +119,26 @@ class KeyboardRow extends StatelessWidget {
                             print(guessedWord);
                             List<String> guessed = [];
                             String guessedWordString = "";
+                            int guessedWordIndex = guessedWord.length - 1;
+                            int letterCounter = 0;
+                            for(int i = correctWord.length - 1; i >= 0; i--) {
+                              if(correctWord[i] == guessedWord[guessedWordIndex].letter) {
+                                letterCounter++;
+                                guessedWordIndex--;
+                              }
+                            }
+
+                            /*
                             for(int i = 0; i < guessedWord.length; i++) {
                               guessed.add(guessedWord[i].letter);
                             }
                             guessedWordString = guessed.join();
                             print(guessedWordString);
+                             */
 
 
 
-                            if(guessedWordString == correctWord) {
+                            if(letterCounter == correctWord.length) {
                               final snackBar = SnackBar(
                                 backgroundColor: Colors.green,
                                 // content: Text("Word guessed correct!"),
