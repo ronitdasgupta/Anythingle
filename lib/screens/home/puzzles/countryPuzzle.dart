@@ -245,6 +245,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
       // final initialDate =     DateTime firstDate = DateTime.parse("2022-07-07");
     }
 
+    DateTime dateSelectedFormat = DateTime.parse(dateSelected);
+
     return StreamProvider<List<PuzzleInfo>>.value(
       // value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInformation,
       value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInfo,
@@ -269,7 +271,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
                     context: context,
                     // initialDate: DateTime.now(),
                     // initialDate: DateTime.now(),
-                    initialDate: _dateTime! == null ? DateTime.now() : _dateTime!,
+                    // initialDate: _dateTime! == null ? DateTime.now() : _dateTime!, THIS CODE KIND OF WORKS
+                    initialDate: _dateTime ?? dateSelectedFormat,
                     // initialDate: _dateTime == DateTime.now() : _dateTime,
                     // initialDate: initDate,
                     // firstDate: DateTime(2021),
