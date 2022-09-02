@@ -66,6 +66,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
   @override
   Widget build(BuildContext context) {
 
+    Provider.of<Controller>(context, listen: false).clearGrid();
+
     String country = "";
     int counter = 0;
     String gameMode = "country";
@@ -254,7 +256,7 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
       initialData: [],
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           backgroundColor: Colors.grey[700],
           title: const Text(
             "Country",

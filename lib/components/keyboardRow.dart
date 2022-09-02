@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:summerapp/models/tile.dart';
+import 'package:summerapp/screens/home/home.dart';
 
 import '../constant/answerStages.dart';
 import '../constant/colors.dart';
@@ -158,7 +159,10 @@ class KeyboardRow extends StatelessWidget {
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               await Future.delayed(Duration(seconds: 5));
-                              exit(0);
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Home()),
+                              );
+                              //exit(0);
                             }
                           }
                           Provider.of<Controller>(context, listen: false)
