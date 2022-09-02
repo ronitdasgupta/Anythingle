@@ -168,7 +168,7 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
     // print(test);
 
     // String initDate = DateFormat('yyyy-MM-dd').format(test);
-    DateTime firstDate = DateTime.parse("2022-07-07");
+    DateTime firstDate = DateTime.parse("2022-08-08");
 
 
 
@@ -232,7 +232,7 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
       final newDate = await showDatePicker(
         context: context,
         initialDate: initialDate,
-        firstDate: DateTime.parse("2022-07-07"),
+        firstDate: DateTime.parse("2022-08-08"),
         lastDate: DateTime.now(),
       );
       if(newDate == null) {
@@ -280,7 +280,29 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
                     setState(() {
                       _dateTime = date;
                       dateSelected = DateFormat('yyyy-MM-dd').format(_dateTime!);
+                      Provider.of<Controller>(context, listen: false).clearGrid();
+                      // Grid(puzzleWord: _word, gameMode: "Countries", category: "Geography");
+                      // Read through the provider and find the country associated with the selected date and make it the _word
+                      allPuzzlesEachDate.forEach((date) {
+                        if(date.date == dateSelected) {
+                          _word = date.answer;
+                          final gridObject = Grid(puzzleWord: _word, gameMode: "Countries", category: "Geography");
+                          Grid(puzzleWord: gridObject.puzzleWord, gameMode: gridObject.gameMode, category: gridObject.category);
+                        }
+                      });
+
+
+                      // Countries(); // Might need this piece of code in the future
+                      // CountryPuzzle();
                       // dateSelected = _dateTime;
+                      /*
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Countries()),
+                      );
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Grid(puzzleWord: _word, gameMode: "Countries", category: "Geography")),
+                      );
+                       */
                       print(_dateTime);
                     });
                   });

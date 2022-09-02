@@ -309,6 +309,13 @@ class Controller extends ChangeNotifier {
     return false;
   }
 
+  void clearGrid() {
+    //tilesEntered.add(Tile(letter: value, answerStage: AnswerStage.notAnswered));
+    tilesEntered.clear();
+    currentTile = 0;
+    currentRow = 0;
+  }
+
   setCorrectWord({required String word}) => correctWord = word;
 
   setKeyTapped({ required String value}) {
