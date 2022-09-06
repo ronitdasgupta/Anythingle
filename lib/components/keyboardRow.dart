@@ -5,12 +5,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:summerapp/models/tile.dart';
+import 'package:summerapp/screens/home/geography.dart';
 import 'package:summerapp/screens/home/home.dart';
+import 'package:summerapp/screens/wrapper.dart';
 
 import '../constant/answerStages.dart';
 import '../constant/colors.dart';
 import '../data/keysMap.dart';
 import '../models/controller.dart';
+import '../models/user.dart';
 
 class KeyboardRow extends StatelessWidget {
   const KeyboardRow({ required this.min, required this.max,
@@ -159,9 +162,11 @@ class KeyboardRow extends StatelessWidget {
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               await Future.delayed(Duration(seconds: 5));
-                              Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Home()),
-                              );
+                                Navigator.push(context,
+                                  // MaterialPageRoute(builder: (context) => Home()),
+                                  MaterialPageRoute(builder: (context) => Wrapper()),
+                                  // MaterialPageRoute(builder: (context) => Geography()),
+                                );
                               //exit(0);
                             }
                           }

@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:summerapp/screens/home/home.dart';
 import 'package:summerapp/services/auth.dart';
 import 'package:summerapp/shared/constants.dart';
 
@@ -16,6 +18,8 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
+
+
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -26,9 +30,13 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+
+    TextStyle linkStyle = TextStyle(color: Colors.blue);
+
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.grey[700],
         title: const Text("Sign In"),
         actions: <Widget>[
@@ -96,6 +104,23 @@ class _SignInState extends State<SignIn> {
                   }
                 },
                 ),
+              const SizedBox(height: 12.0),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Continue as Guest",
+                      style: linkStyle,
+                      recognizer: TapGestureRecognizer()..onTap = () {
+                        // return Home();
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      }
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 12.0),
               Text(
                 error,

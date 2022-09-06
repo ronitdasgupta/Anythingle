@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:summerapp/constant/words.dart';
 import 'package:summerapp/models/puzzleInfo.dart';
+import 'package:summerapp/screens/home/help.dart';
 import 'package:summerapp/services/puzzleOfTheDay.dart';
 import 'package:summerapp/services/puzzlesCollection.dart';
 
@@ -256,11 +257,11 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
       initialData: [],
       child: Scaffold(
         appBar: AppBar(
-          // automaticallyImplyLeading: false,
-          backgroundColor: Colors.grey[700],
           title: const Text(
             "Country",
           ),
+          // automaticallyImplyLeading: false,
+          backgroundColor: Colors.grey[700],
           actions: <Widget>[
             TextButton.icon(
                 icon: const Icon(Icons.calendar_today),
@@ -313,6 +314,16 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
                   });
                 }),
             TextButton.icon(
+              icon: const Icon(Icons.help),
+              label: const Text(""),
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Help()),
+                );
+              }
+            ),
+            /*
+            TextButton.icon(
               icon: const Icon(Icons.exit_to_app),
               label: const Text(
                 "Quit",
@@ -320,10 +331,16 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
                 exit(0);
             },
             ),
+            */
           ],
         ),
         body: Column(
           children: [
+            /*
+            Text(
+              "Country",
+            ),
+            */
             const Divider(
               height: 1,
               thickness: 2,
