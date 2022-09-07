@@ -102,6 +102,7 @@ class KeyboardRow extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                duration: const Duration(seconds: 1),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
                             }
@@ -159,9 +160,10 @@ class KeyboardRow extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                duration: const Duration(seconds: 2),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              await Future.delayed(Duration(seconds: 5));
+                              await Future.delayed(Duration(seconds: 2));
                                 Navigator.push(context,
                                   // MaterialPageRoute(builder: (context) => Home()),
                                   MaterialPageRoute(builder: (context) => Wrapper()),

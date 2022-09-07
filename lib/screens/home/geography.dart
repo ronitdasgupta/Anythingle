@@ -45,11 +45,30 @@ class Geography extends StatelessWidget {
               const SizedBox(height: 20.0),
               ElevatedButton(
                   onPressed: () {
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.grey,
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Icon(Icons.info, size: 32),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              "Coming soon!",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                      duration: const Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: const Text(
                       "Country Capitals"
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
                     minimumSize: const Size(280, 80),
                     textStyle: const TextStyle(fontSize: 28),
                   )
@@ -57,12 +76,30 @@ class Geography extends StatelessWidget {
               const SizedBox(height: 20.0),
               ElevatedButton(
                   onPressed: () {
-
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.grey,
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Icon(Icons.info, size: 32),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              "Coming soon!",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                      duration: const Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: const Text(
                       "States"
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
                     minimumSize: const Size(280, 80),
                     textStyle: const TextStyle(fontSize: 28),
                   )
@@ -70,12 +107,30 @@ class Geography extends StatelessWidget {
               const SizedBox(height: 20.0),
               ElevatedButton(
                   onPressed: () {
-
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.grey,
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Icon(Icons.info, size: 32),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              "Coming soon!",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                      duration: const Duration(seconds: 1),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: const Text(
                       "State Capitals"
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
                     minimumSize: const Size(280, 80),
                     textStyle: const TextStyle(fontSize: 28),
                   )

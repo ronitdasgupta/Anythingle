@@ -193,6 +193,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 50.0),
             ElevatedButton(
+              // onPressed: null,
               onPressed: () {
                 Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Sports()),
@@ -209,12 +210,30 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 50.0),
             ElevatedButton(
               onPressed: () {
-
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.grey,
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Icon(Icons.info, size: 32),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Text(
+                          "Coming soon!",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                  duration: const Duration(seconds: 1),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: const Text(
                   "Food"
               ),
               style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
                 minimumSize: const Size(280, 80),
                 textStyle: const TextStyle(fontSize: 28),
               ),
