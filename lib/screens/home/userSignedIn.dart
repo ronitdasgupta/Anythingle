@@ -24,18 +24,6 @@ class _UserSignedInState extends State<UserSignedIn> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        // automaticallyImplyLeading: backButton,
-        // automaticallyImplyLeading: false,
-        /*
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Authenticate()),
-            );
-          },
-        ),
-        */
         title: const Text(
             "Modes"
         ),
@@ -54,13 +42,6 @@ class _UserSignedInState extends State<UserSignedIn> {
             icon: Icon(Icons.person),
             label: Text("Logout"),
             onPressed: () async {
-              /*
-              if(user == null) {
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Authenticate()),
-                );
-              }
-              */
               await _auth.signOut();
               widget.toggleView;
             },

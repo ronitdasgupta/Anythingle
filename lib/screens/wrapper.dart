@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:summerapp/models/dbPuzzles.dart';
 import 'package:summerapp/screens/authenticate/authenticate.dart';
+import 'package:summerapp/screens/authenticate/verify.dart';
 import 'package:summerapp/screens/home/home.dart';
+import 'package:summerapp/services/auth.dart';
+import 'package:summerapp/shared/loading.dart';
 
 import '../models/puzzleInfo.dart';
 import '../models/user.dart';
@@ -15,12 +19,18 @@ import 'package:http/http.dart' as http;
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
-
   @override
   State<Wrapper> createState() => _WrapperState();
 }
 
 class _WrapperState extends State<Wrapper> {
+
+  final auth = FirebaseAuth.instance;
+  // User? userFirebase;
+  // late User userFirebase;
+  // User? userFirebase;
+  // late User userFirebase;
+  User? userFirebase;
   
   Future<void> updateDataStoreInFirestore() async {
     final DataStoreCollection dataStoreCollection = DataStoreCollection();
@@ -45,36 +55,55 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   void initState() {
+
+    // userFirebase = auth.currentUser!;
+
+    /*
+    if(userFirebase != null) {
+      userFirebase = auth.currentUser;
+    }
+     */
     updateDataStoreInFirestore();
-    // dynamic result = await
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
 
+    Future<bool> checkEmail() async {
+      userFirebase = auth.currentUser!;
+      if(userFirebase == null) {
+        return false;
+      }
+      await userFirebase?.reload();
+      if(userFirebase!.emailVerified) {
+        return true;
+      }
+      return false;
+    }
+
+    Future<StatefulWidget> checkEmailVerify() async {
+      bool checkEmailVerified = await checkEmail();
+      if(checkEmailVerified == true) {
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+        return Home();
+      } else {
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const VerifyScreen()));
+        return const VerifyScreen();
+      }
+    }
+
+    // bool checkEmailVerified = await checkEmail();
+
     final user = Provider.of<MyUser?>(context);
 
     if(user == null) {
-      return Authenticate();
+      return  const Authenticate();
       // return Home();
     } else {
-      // return PuzzlesWrapper();
       return Home();
+      // checkEmailVerify();
     }
-
-    /*
-    return StreamProvider<List<PuzzlesInfo>>.value(
-        value: PuzzlesCollection().puzzleInfo,
-        initialData: [],
-        child: PuzzlesWrapper(),
-    );
-     */
-
-    /*
-    else {
-      return Home();
-    }
-     */
+    // return Loading();
   }
 }

@@ -22,8 +22,6 @@ class Countries extends StatefulWidget {
   State<Countries> createState() => _CountriesState();
 }
 
-
-
 class _CountriesState extends State<Countries> {
 
   String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -44,45 +42,6 @@ class _CountriesState extends State<Countries> {
 
   @override
   Widget build(BuildContext context) {
-
-    /*
-    final allDBPuzzles = Provider.of<List<DBPuzzles>>(context);
-    print(allDBPuzzles);
-
-    allDBPuzzles.forEach((gameMode) {
-      if(gameMode.gameMode == "Countries") {
-        // List<String> countryList = gameMode.puzzleList;
-        final rand = Random();
-        String country = gameMode.puzzleList[rand.nextInt(gameMode.puzzleList.length)];
-        print(country);
-      }
-    });
-     */
-
-    /*
-      return StreamProvider<List<PuzzleInformationDB>>.value(
-        value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInformation,
-        initialData: [],
-        child: const Scaffold(
-          backgroundColor: Colors.black,
-          body: CountryPuzzle(),
-        ),
-      );
-     */
-
-    /*
-    return StreamProvider<List<PuzzleInformationDB>>.value(
-      value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInformation,
-      initialData: [],
-      child: const Scaffold(
-        backgroundColor: Colors.black,
-        body: CountryPuzzle(),
-      ),
-    );
-     */
-
-
-
     return StreamProvider<List<PuzzleInfo>>.value(
       // value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInformation,
       // value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInfo,
@@ -94,87 +53,6 @@ class _CountriesState extends State<Countries> {
         body: CountryPuzzle(),
       ),
     );
-
-    /*
-    return const Scaffold(
-      backgroundColor: Colors.black,
-      body: CountryPuzzle(),
-    );
-     */
-
-
-    /*
-    return StreamProvider<List<PuzzleInfo>>.value(
-      // value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInformation,
-      // value: PuzzlesCollection(gameMode: gameMode, dateSelected: currentDate).puzzleInfo,
-      value: PuzzlesCollection(gameMode: gameMode, dateSelected: selectedDate).puzzleInfo, // THIS IS WHERE THE ISSUE IS
-      initialData: [],
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.grey[700],
-          title: const Text(
-            "Country Puzzle",
-          ),
-          actions: <Widget>[
-            TextButton.icon(
-                icon: const Icon(Icons.calendar_today),
-                label: Text(
-                  // "Select Date",
-                  dateSelected,
-                ),
-                onPressed: () async {
-                  DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    // initialDate: DateTime.now(),
-                    // initialDate: DateTime.now(),
-                    initialDate: _dateTime! == null ? DateTime.now() : _dateTime!,
-                    // initialDate: _dateTime == DateTime.now() : _dateTime,
-                    // initialDate: initDate,
-                    // firstDate: DateTime(2021),
-                    firstDate: firstDate,
-                    // firstDate: DateTime.
-                    lastDate: DateTime.now(),
-                  ).then((date) {
-                    setState(() {
-                      _dateTime = date;
-                      dateSelected = DateFormat('yyyy-MM-dd').format(_dateTime!);
-                      // dateSelected = _dateTime;
-                      print(_dateTime);
-                    });
-                  });
-                }),
-          ],
-        ),
-        body: Column(
-          children: [
-            const Divider(
-              height: 1,
-              thickness: 2,
-            ),
-            Expanded(
-              flex: 7,
-              child: Grid(puzzleWord: _word, gameMode: "Countries", category: "Geography"),
-            ),
-            Expanded(
-                flex: 4,
-                child: Column(
-                  children: const [
-                    KeyboardRow(min: 1, max: 10),
-                    KeyboardRow(min: 11, max: 19),
-                    KeyboardRow(min: 20, max: 29),
-                  ],
-                )
-            ),
-          ],
-        ),
-      ),
-    );
-    */
-
-
-
-
-
   }
 }
 

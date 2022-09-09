@@ -33,6 +33,7 @@ class _RegisterState extends State<Register> {
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.grey[700],
         title: const Text("Sign Up"),
         actions: <Widget>[

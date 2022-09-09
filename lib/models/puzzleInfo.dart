@@ -4,13 +4,6 @@ class GameMode {
 
   GameMode({ required this.game, required this.puzzleInfo});
 
-  /*
-  factory GameMode.fromJson(Map<String, dynamic> json) {
-    return GameMode(
-      game: json[game],
-    );
-  }
-   */
 }
 
 
@@ -50,12 +43,3 @@ class PuzzleInformationDB {
   // PuzzleInformationDB(this.puzzleInfo, this.date);
   PuzzleInformationDB({required this.puzzleInfo, required this.date});
 }
-
-/*
-class PuzzlesInfo {
-  final List<dynamic> dates;
-  final String gameMode;
-
-  PuzzlesInfo({ required this.dates, required this.gameMode });
-}
- */

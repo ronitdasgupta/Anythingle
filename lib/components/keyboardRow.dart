@@ -25,30 +25,6 @@ class KeyboardRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    /*
-    bool isWordCorrect() {
-      String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
-      List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
-      int guessedWordCounter = guessedWord.length - 1;
-      int counter = 0;
-      for(int i = correctWord.length - 1; i >= 0; i--) {
-        if(correctWord[i] != guessedWord[guessedWordCounter]){
-          return false;
-        } else {
-          guessedWordCounter--;
-          counter++;
-        }
-        if(counter == 6) {
-          return true;
-        }
-      }
-      return true;
-    }
-
-    bool test = isWordCorrect();
-     */
-
     final size = MediaQuery.of(context).size;
     return Consumer<Controller>(
       builder: (_, notifier, __) {
@@ -70,7 +46,6 @@ class KeyboardRow extends StatelessWidget {
               keyColor = Theme.of(context).textTheme.bodyText2?.color ?? Colors.black;
             }
 
-
             return Padding(
               padding: EdgeInsets.all(size.width * 0.006),
               child: ClipRRect(
@@ -88,7 +63,6 @@ class KeyboardRow extends StatelessWidget {
                             if(Provider.of<Controller>(context, listen: false).isValidWord() == false) {
                               final errorSnackBar = SnackBar(
                                 backgroundColor: Colors.red,
-                                // content: Text("Word guessed correct!"),
                                 content: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: const [
@@ -106,18 +80,7 @@ class KeyboardRow extends StatelessWidget {
                               );
                               ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
                             }
-                            /*
-                            if(Provider.of<Controller>(context, listen: false).tilesEntered.length != Provider.of<Controller>(context, listen: false).getCorrectWord().length) {
-                                Provider.of<Controller>(context, listen: false).setKeyTapped(value: "");
-                            }
-                             */
                             Provider.of<Controller>(context, listen: false).setKeyTapped(value: e.key);
-                            //Provider.of<Controller>(context, listen: false).returnGuessedWord();
-                            //String guessedWord = Provider.of<Controller>(context, listen: false).returnGuessedWord();
-                            //print(guessedWord);
-                            //Provider.of<Controller>(context, listen: false).getCorrectWord();
-                            // String guessedWord = Provider.of<Controller>(context, listen: false).returnGuessedWord();
-                            // print(guessedWord);
                             String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
                             print(correctWord);
                             List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
@@ -132,21 +95,31 @@ class KeyboardRow extends StatelessWidget {
                                 guessedWordIndex--;
                               }
                             }
-
-                            /*
-                            for(int i = 0; i < guessedWord.length; i++) {
-                              guessed.add(guessedWord[i].letter);
+                            // If the user is on the last row and the word entered is wrong, then display the correct word in snack bar.
+                            if(Provider.of<Controller>(context, listen: false).currentRow == 6 && letterCounter != correctWord.length) {
+                              final showCorrectWord = SnackBar(
+                                backgroundColor: Colors.grey,
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(Icons.info, size: 32),
+                                    SizedBox(width: 16),
+                                    Expanded(
+                                      child: Text(
+                                        "The correct word is: " + correctWord,
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                duration: const Duration(seconds: 1),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(showCorrectWord);
                             }
-                            guessedWordString = guessed.join();
-                            print(guessedWordString);
-                             */
-
-
 
                             if(letterCounter == correctWord.length) {
                               final snackBar = SnackBar(
                                 backgroundColor: Colors.green,
-                                // content: Text("Word guessed correct!"),
                                 content: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: const [
@@ -163,25 +136,14 @@ class KeyboardRow extends StatelessWidget {
                                 duration: const Duration(seconds: 2),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              await Future.delayed(Duration(seconds: 2));
+                              await Future.delayed(const Duration(seconds: 2));
                                 Navigator.push(context,
-                                  // MaterialPageRoute(builder: (context) => Home()),
-                                  MaterialPageRoute(builder: (context) => Wrapper()),
-                                  // MaterialPageRoute(builder: (context) => Geography()),
+                                  MaterialPageRoute(builder: (context) => const Wrapper()),
                                 );
-                              //exit(0);
                             }
                           }
                           Provider.of<Controller>(context, listen: false)
                               .setKeyTapped(value: e.key);
-
-
-                          /*
-                          if(Provider.of<Controller>(context, listen: false).checkWordBoolean() == true) {
-                            Provider.of<Controller>(context, listen: false)
-                                .setKeyTapped(value: e.key);
-                          }
-                          */
                         },
                         child: Center(child: Text(e.key, style:
                         Theme.of(context).textTheme.bodyText2?.copyWith(

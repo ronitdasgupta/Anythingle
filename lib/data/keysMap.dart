@@ -29,7 +29,6 @@ Map<String, AnswerStage> keysMap = {
   'N' : AnswerStage.notAnswered,
   'M' : AnswerStage.notAnswered,
   'BACK' : AnswerStage.notAnswered,
-  // "": AnswerStage.notAnswered,
 };
 
 Map<String, AnswerStage> specialKeyMap = {

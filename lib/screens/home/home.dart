@@ -8,8 +8,12 @@ import 'package:summerapp/screens/wrapper.dart';
 import 'package:summerapp/services/auth.dart';
 
 import '../../models/controller.dart';
+import '../../models/dbPuzzles.dart';
+import '../../models/puzzleInfo.dart';
 import '../../models/tile.dart';
 import '../../models/user.dart';
+import '../../services/dataStoreCollection.dart';
+import '../../services/puzzlesCollection.dart';
 import 'geography.dart';
 import 'guest.dart';
 
@@ -25,7 +29,7 @@ class _HomeState extends State<Home> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   MyUser? _userFromFirebaseUser(User? user) {
-    return user != null ? MyUser(uid: user.uid) : null;
+    return user != null ? MyUser(uid: user.uid, emailVerified: user.emailVerified) : null;
   }
 
   Stream<MyUser?> get user {
@@ -37,72 +41,13 @@ class _HomeState extends State<Home> {
     setState(() => guest = !guest);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
 
-    // final FirebaseAuth _auth = FirebaseAuth.instance;
-
     final user = Provider.of<MyUser?>(context);
     print(user);
-
-    bool backButton = true;
-
-    bool showBackButton() {
-      String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
-      print(correctWord);
-      List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
-      print(guessedWord);
-      List<String> guessed = [];
-      String guessedWordString = "";
-      int guessedWordIndex = guessedWord.length - 1;
-      int letterCounter = 0;
-      for(int i = correctWord.length - 1; i >= 0; i--) {
-        if(correctWord[i] == guessedWord[guessedWordIndex].letter) {
-          letterCounter++;
-          guessedWordIndex--;
-        }
-      }
-      if(letterCounter == correctWord.length && correctWord != "") {
-        return false;
-      }
-      if(user == null) {
-        return true;
-      } else {
-        return false;
-      }
-
-    }
-
-    /*
-    String correctWord = Provider.of<Controller>(context, listen: false).getCorrectWord();
-    print(correctWord);
-    List<Tile> guessedWord = Provider.of<Controller>(context, listen: false).tilesEntered;
-    print(guessedWord);
-    List<String> guessed = [];
-    String guessedWordString = "";
-    int guessedWordIndex = guessedWord.length - 1;
-    int letterCounter = 0;
-    for(int i = correctWord.length - 1; i >= 0; i--) {
-      if(correctWord[i] == guessedWord[guessedWordIndex].letter) {
-        letterCounter++;
-        guessedWordIndex--;
-      }
-    }
-    if(letterCounter == correctWord.length && correctWord != "") {
-      if(user == null) {
-        setState(() {
-          backButton = true;
-        });
-      }
-      setState(() {
-        backButton = false;
-      });
-    }
-     */
-
-
-    MyUser test = MyUser();
-    test.uid;
 
     String userSignedIn() {
       if(user?.uid == null || user?.uid == "") {
@@ -121,19 +66,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        // automaticallyImplyLeading: backButton,
         automaticallyImplyLeading: false,
-        // automaticallyImplyLeading: false,
-        /*
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Authenticate()),
-            );
-          },
-        ),
-        */
         title: const Text(
             "Modes"
         ),
@@ -150,24 +83,16 @@ class _HomeState extends State<Home> {
           ),
           TextButton.icon(
             icon: Icon(Icons.person),
-            // label: Text("Logout"),
             label: Text(signedIn),
             onPressed: () async {
               if(signedIn == "Logout") {
                 _auth.signOut();
+                // await _auth.signOut();
               } else {
                 Navigator.push(context,
-                  // MaterialPageRoute(builder: (context) => const Authenticate()),
                   MaterialPageRoute(builder: (context) => const Wrapper()),
                 );
               }
-              /*
-              if(user == null) {
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Authenticate()),
-                );
-              }
-              */
               await _auth.signOut();
             },
           ),

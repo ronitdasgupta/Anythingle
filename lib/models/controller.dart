@@ -201,6 +201,10 @@ class Controller extends ChangeNotifier {
     return correctWord;
   }
 
+  int userCurrentRow() {
+    return currentRow;
+  }
+
   bool guessedCorrect() {
     String guessedWord = returnGuessedWord();
     String correctWord = getCorrectWord();
@@ -265,15 +269,12 @@ class Controller extends ChangeNotifier {
         specialKeyMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
       }
       return true;
-      // print('word guessed correct!');
     } else {
       for(int i = 0; i < correctWord.length; i++) {
         if(guessedWord[i] == correctWord[i]) {
           remainingCorrect.remove(guessedWord[i]);
           tilesEntered[i + (currentRow * correctWord.length)].answerStage = AnswerStage.correct;
           specialKeyMap.update(guessedWord[i], (value) => AnswerStage.correct);
-          // Letter guessed at the correct spot
-          // print('letter guessed at ${guessedWord[i]}');
         }
       }
       for(int i = 0; i < remainingCorrect.length; i++) {
@@ -282,17 +283,13 @@ class Controller extends ChangeNotifier {
             if(tilesEntered[j + (currentRow * correctWord.length)].answerStage != AnswerStage.correct) {
               tilesEntered[j + (currentRow * correctWord.length)].answerStage = AnswerStage.contains;
             }
-            // final resultKey = keysMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * 5)]);
             final resultKey = specialKeyMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * correctWord.length)].letter);
             if(resultKey.single.value != AnswerStage.correct) {
               specialKeyMap.update(resultKey.single.key, (value) => AnswerStage.contains);
             }
-            // print('contains ${remainingCorrect[i]}');
           }
         }
       }
-      // return false;
-      // print('word not guessed');
     }
 
 
@@ -310,7 +307,6 @@ class Controller extends ChangeNotifier {
   }
 
   void clearGrid() {
-    //tilesEntered.add(Tile(letter: value, answerStage: AnswerStage.notAnswered));
     tilesEntered.clear();
     currentTile = 0;
     currentRow = 0;
@@ -320,9 +316,6 @@ class Controller extends ChangeNotifier {
 
   setKeyTapped({ required String value}) {
     if(value == 'ENTER') {
-      // currentTile = correctWord.length * (currentRow - 1);
-      int guessedCharacter = 0;
-      // tilesEntered.add(Tile(letter: "X", answerStage: AnswerStage.notAnswered));
       // Check to see if the word entered is a valid country
       List<String> guessed = [], remainingCorrect = [];
       String guessedWord = "";
@@ -334,50 +327,12 @@ class Controller extends ChangeNotifier {
         }
       }
       guessedWord = guessed.join();
-      // guessedWord = guessedWord[0].toUpperCase() + guessedWord[guessedWord.length - 1].toLowerCase();
-      // Check to see if the guessed word is a valid country
-      // If it is allow the user to go to the next line and update the status of the letters
-      // If it is not, notify the user to enter a valid country (use a snackbar?)
-      // allDBPuzzles
-      //CountryPuzzle
-      // print(countries);
-
-
-
 
       for(int i = 0; i < countries.length; i++) {
         if(guessedWord == countries[i].toUpperCase()) {
           checkWord();
-          // currentRow++;
         }
       }
-
-      /*
-      if(countries.contains(guessedWord)) {
-        checkWord();
-        currentRow++;
-      }
-       */
-
-
-      // This if statement checks to see if enough letters are entered for the word of the day
-      /*
-      if(currentTile == correctWord.length * (currentRow + 1)) {
-        // currentRow++;
-        // checkWord();
-        bool isWordCorrect = checkWordBoolean();
-        /*
-        if(isWordCorrect == true) {
-          // exit(0);
-          const snackBar = SnackBar(
-            content: Text("Word guessed correct!"),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-        */
-        print('check word');
-      }
-      */
     }
     if(value == 'BACK') {
       if(currentTile > correctWord.length * (currentRow + 1) - correctWord.length) {
@@ -401,7 +356,6 @@ class Controller extends ChangeNotifier {
       }
     }
     notifyListeners();
-    // print('current tile $currentTile and currentRow $currentRow');
   }
 
   checkWord() {
@@ -429,15 +383,12 @@ class Controller extends ChangeNotifier {
         tilesEntered[i].answerStage = AnswerStage.correct;
         specialKeyMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
       }
-      // print('word guessed correct!');
     } else {
       for(int i = 0; i < guessedWord.length; i++) {
         if(guessedWord[i] == correctWord[i]) {
           remainingCorrect.remove(guessedWord[i]);
           tilesEntered[i + (currentRow * correctWord.length)].answerStage = AnswerStage.correct;
           specialKeyMap.update(guessedWord[i], (value) => AnswerStage.correct);
-          // Letter guessed at the correct spot
-          // print('letter guessed at ${guessedWord[i]}');
         }
       }
       for(int i = 0; i < remainingCorrect.length; i++) {
@@ -446,18 +397,14 @@ class Controller extends ChangeNotifier {
             if(tilesEntered[j + (currentRow * correctWord.length)].answerStage != AnswerStage.correct) {
               tilesEntered[j + (currentRow * correctWord.length)].answerStage = AnswerStage.contains;
             }
-            // final resultKey = keysMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * 5)]);
             final resultKey = specialKeyMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * correctWord.length)].letter);
             if(resultKey.single.value != AnswerStage.correct) {
               specialKeyMap.update(resultKey.single.key, (value) => AnswerStage.contains);
             }
-            // print('contains ${remainingCorrect[i]}');
           }
         }
       }
-      // print('word not guessed');
     }
-
 
     for(int i = currentRow * correctWord.length; i < (currentRow * correctWord.length) + correctWord.length; i++) {
       if(tilesEntered[i].answerStage == AnswerStage.notAnswered) {
@@ -465,7 +412,6 @@ class Controller extends ChangeNotifier {
         specialKeyMap.update(tilesEntered[i].letter, (value) => AnswerStage.incorrect);
       }
     }
-
 
     currentRow++;
     notifyListeners();
@@ -490,20 +436,12 @@ class Controller extends ChangeNotifier {
     remainingCorrect = correctWord.characters.toList();
     if(guessedWord == correctWord) {
       return true;
-      for(int i = currentRow * correctWord.length; i < (currentRow * correctWord.length) + correctWord.length; i++) {
-        tilesEntered[i].answerStage = AnswerStage.correct;
-        specialKeyMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
-      }
-      return true;
-      // print('word guessed correct!');
     } else {
       for(int i = 0; i < guessedWord.length; i++) {
         if(guessedWord[i] == correctWord[i]) {
           remainingCorrect.remove(guessedWord[i]);
           tilesEntered[i + (currentRow * correctWord.length)].answerStage = AnswerStage.correct;
           specialKeyMap.update(guessedWord[i], (value) => AnswerStage.correct);
-          // Letter guessed at the correct spot
-          // print('letter guessed at ${guessedWord[i]}');
         }
       }
       for(int i = 0; i < remainingCorrect.length; i++) {
@@ -512,18 +450,14 @@ class Controller extends ChangeNotifier {
             if(tilesEntered[j + (currentRow * correctWord.length)].answerStage != AnswerStage.correct) {
               tilesEntered[j + (currentRow * correctWord.length)].answerStage = AnswerStage.contains;
             }
-            // final resultKey = keysMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * 5)]);
             final resultKey = specialKeyMap.entries.where((element) => element.key == tilesEntered[j + (currentRow * correctWord.length)].letter);
             if(resultKey.single.value != AnswerStage.correct) {
               specialKeyMap.update(resultKey.single.key, (value) => AnswerStage.contains);
             }
-            // print('contains ${remainingCorrect[i]}');
           }
         }
       }
-      // print('word not guessed');
     }
-
 
     for(int i = currentRow * correctWord.length; i < (currentRow * correctWord.length) + correctWord.length; i++) {
       if(tilesEntered[i].answerStage == AnswerStage.notAnswered) {
@@ -531,7 +465,6 @@ class Controller extends ChangeNotifier {
         specialKeyMap.update(tilesEntered[i].letter, (value) => AnswerStage.incorrect);
       }
     }
-
 
     currentRow++;
     notifyListeners();
