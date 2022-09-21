@@ -34,6 +34,7 @@ class _SignInState extends State<SignIn> {
     TextStyle linkStyle = TextStyle(color: Colors.blue);
 
     return loading ? Loading() : Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
         automaticallyImplyLeading: false,

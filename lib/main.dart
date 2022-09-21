@@ -39,6 +39,10 @@ void main() async {
         value: PuzzlesCollection(gameMode: 'Countries', dateSelected: '2022-08-04').puzzleInformation,
         initialData: [],
       ),
+      StreamProvider<List<PuzzleInfo>>.value(
+      value: PuzzlesCollection(gameMode: "country").puzzleInfo,
+      initialData: [],
+      )
     ],
       child: const MyApp()));
 }

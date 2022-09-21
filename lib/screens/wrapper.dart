@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:summerapp/models/dbPuzzles.dart';
 import 'package:summerapp/screens/authenticate/authenticate.dart';
 import 'package:summerapp/screens/authenticate/verify.dart';
+import 'package:summerapp/screens/custom_wrapper.dart';
 import 'package:summerapp/screens/home/home.dart';
 import 'package:summerapp/services/auth.dart';
 import 'package:summerapp/shared/loading.dart';
@@ -101,7 +102,11 @@ class _WrapperState extends State<Wrapper> {
       return  const Authenticate();
       // return Home();
     } else {
-      return Home();
+      if(user.emailVerified) {
+        return CustomWrapper();
+      } else {
+        return VerifyScreen();
+      }
       // checkEmailVerify();
     }
     // return Loading();

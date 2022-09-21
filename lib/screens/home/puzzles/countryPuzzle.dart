@@ -37,6 +37,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
   bool isChanged = true;
   String dateSelected = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
+  bool loading = false;
+
   late String _word;
   // String _word = "";
   @override
@@ -49,6 +51,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
 
   @override
   Widget build(BuildContext context) {
+
+    _word = "%%%%%";
 
     Provider.of<Controller>(context, listen: false).clearGrid();
 
@@ -68,6 +72,8 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
         print("error in updatePuzzleCollectionInFirestore");
       }
     }
+
+    int allPuzzleEachDateCounter = 0;
 
     final allDBPuzzles = Provider.of<List<DBPuzzles>>(context);
     print(allDBPuzzles);
@@ -115,10 +121,13 @@ class _CountryPuzzleState extends State<CountryPuzzle> {
 
     DateTime firstDate = DateTime.parse("2022-08-08");
 
-    if(allDBPuzzles.isNotEmpty) {
+    if(allDBPuzzles.isNotEmpty && allPuzzlesEachDate.isNotEmpty) {
       _word = country;
       _word = _word.toUpperCase();
       Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
+    } else {
+      // _word = "TEST";
+      // Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
     }
 
     DateTime dateSelectedFormat = DateTime.parse(dateSelected);
